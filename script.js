@@ -23,6 +23,18 @@ let buttons = document.querySelectorAll(".btn");
 log(`Find:${buttons.length} buttons.`);
 log(`All buttons:${Array.from(buttons).map((button)=>button.getAttribute("data-value"))}`)
 
+
+//
+
+document.getElementById("basic").addEventListener("change", () => {
+    document.querySelector(".extra-operations").classList.remove("show-extras");
+});
+
+document.getElementById("show-extra-ops").addEventListener("change", () => {
+    document.querySelector(".extra-operations").classList.add("show-extras");
+});
+
+
 //global variable
 let firstOperand = null;
 let secondOperand = null;
@@ -33,9 +45,13 @@ let currentInput = "";
 //object for mapping operator to their mathematical function
 let operations = {
     "+": (a, b) => a + b,
-    "-":(a,b)=> a - b,
-    "*":(a,b)=> a * b,
-    "/":(a,b)=>(b!== 0) ? a / b : "Error"
+    "-": (a,b)=> a - b,
+    "*": (a,b)=> a * b,
+    "/": (a, b) => (b !== 0) ? a / b : "Error",
+    "%": (a, b) => a % b,
+    "^": (a, b) => Math.pow(a, b),
+    "SQUARE2": (a, b) => Math.sqrt(a),
+    "SQUARE3": (a, b) => Math.cbrt(a),
 }
 
 //function to set first and second operand
@@ -75,16 +91,37 @@ function updateUi() {
 
 //main function for calculation
 function calculate(){
-    if (firstOperand !== null && operator !== null && secondOperand !== null)  {
-        let result = operations[operator](firstOperand, secondOperand);
-        firstOperand = result;
-        secondOperand = null;
-        currentInput = "";
+    if (operator === "SQUARE2" || operator === "SQUARE3") {
+        if (firstOperand !== null) {
+            firstOperand = operations[operator](firstOperand);
+            log(`Result : ${firstOperand}`);
+            operator = null;
+        }
+    } else if (firstOperand !== null && secondOperand !== null) {
+        firstOperand = operations[operator](firstOperand, secondOperand);
+    }
+    
+    secondOperand = null;
+    currentInput = "";
+    operator = null;
+    updateUi();
+}
+
+//function for sqr
+function applySingleOperandOperation(operation) {
+    if (firstOperand === null && currentInput !== "") {
+        firstOperand = parseFloat(currentInput);
+    }
+    if (firstOperand !== null) {
+        firstOperand = operations[operation](firstOperand);
+        log(`Applied ${operation}: Result = ${firstOperand}`);
         operator = null;
-        log(`Result : ${firstOperand}`);
+        currentInput = "";
         updateUi();
+    }
 }
-}
+
+
 //aditional function
 function resetCalculator() {
     firstOperand = null;
@@ -139,8 +176,23 @@ buttons.forEach((button) => {
                 handleNumberInput(value);
                 break;
             case value in operations:
-                setOperator(value);
+                if (value === "SQUARE2" || value === "SQUARE3") {
+                    if (firstOperand === null && currentInput !== "") {
+                    firstOperand = parseFloat(currentInput);
+                    }
+                    if (firstOperand !== null) {
+                    let result = operations[value](firstOperand); 
+                    log(`Applied ${value} to ${firstOperand}, result: ${result}`);
+                    firstOperand = result;
+                    operator = null;
+                    currentInput = "";
+                    updateUi();
+                    }
+                } else {
+                    setOperator(value);
+                }
                 break;
+
             case value === "=":
                 setOperand();
                 calculate();

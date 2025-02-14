@@ -31,6 +31,12 @@ body{
     grid-template-columns: repeat(4,1fr);
     gap: 3px;
 }
+.extra-operations{
+    display: none;
+    grid-column: span 4;
+    gap: 3px;
+
+}
 .btn{
     width: 5rem;
     height: 5rem;
@@ -65,4 +71,10 @@ footer{
 .smallFont{
     font-size: 0.7rem;
     color: red;
+}
+.show-extras{
+    display: flex;
+}
+sup{
+    font-size: 1rem;
 }

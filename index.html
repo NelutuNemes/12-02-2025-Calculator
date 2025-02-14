@@ -13,10 +13,25 @@
     <main>
         <div class="container">
             <div class="display" id="display"></div>
+            <div class="toggle-operations">
+                <input type="radio" name="toggleOps" id="basic" checked>
+                <label for="basic">Basic</label>        
+                <input type="radio" name="toggleOps" id="show-extra-ops">
+                <label for="show-extra-ops">Advanced Ops</label>
+                <input type="radio" name="toggleOps" id="vat-handler">
+                <label for="vat-handler">VAT Ops</label>
+
+            </div>
             <div class="buttons">
                 <button class="btn clear" data-value="C">C</button>
                 <button class="btn delete" data-value="DEL">DEL</button>
                 <button class="btn equal" data-value="=">=</button>
+            <div class="extra-operations">
+                <button class="btn operator" data-value="%">%</button>
+                <button class="btn operator" data-value="^">x<sup>y</sup></button>
+                <button class="btn operator" data-value="SQUARE2"><sup>2</sup>&Sqrt;x</button>
+                <button class="btn operator" data-value="SQUARE3"><sup>3</sup>&Sqrt;x</button>
+            </div>
                 <button class="btn" data-value="7">7</button>
                 <button class="btn" data-value="8">8</button>
                 <button class="btn" data-value="9">9</button>
