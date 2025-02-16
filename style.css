@@ -35,7 +35,21 @@ body{
     display: none;
     grid-column: span 4;
     gap: 3px;
+}
+.percent{
+    display: none;
+    grid-column: span 4;
+    gap: 3px;
+    /* background: lavender; */
+}
 
+#percent-btn-plus, #percent-btn-minus{
+    grid-column: span 2;
+    width: 10.2rem;
+    height: 4rem;
+    gap: 3px;
+    background: rgb(132, 132, 241);
+    color:white;
 }
 .btn{
     width: 5rem;

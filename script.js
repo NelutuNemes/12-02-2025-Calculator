@@ -1,9 +1,7 @@
 // Debug tool
 let debug = true;
 let log = (message) => {
-    if (debug) {
-        console.log(message);
-    }
+    if (debug) console.log(message);
 };
 log(`Debug is active!`);
 
@@ -11,6 +9,7 @@ log(`Debug is active!`);
 let display = document.getElementById("display");
 let buttons = document.querySelectorAll(".btn");
 
+// Initialize display
 (() => {
     display.classList.add("smallFont");
     display.textContent = "... initializing device";
@@ -26,10 +25,12 @@ log(`All buttons: ${Array.from(buttons).map((button) => button.getAttribute("dat
 // Toggle extra operations visibility
 document.getElementById("basic").addEventListener("change", () => {
     document.querySelector(".extra-operations").classList.remove("show-extras");
+    document.querySelector(".percent").classList.remove("show-extras");
 });
 
 document.getElementById("show-extra-ops").addEventListener("change", () => {
     document.querySelector(".extra-operations").classList.add("show-extras");
+    document.querySelector(".percent").classList.add("show-extras");
 });
 
 // Global variables
@@ -38,13 +39,14 @@ let secondOperand = null;
 let operator = null;
 let currentInput = "";
 
-// Object for mapping operators to their mathematical functions
+// Object for mathematical operations
 let operations = {
     "+": (a, b) => a + b,
     "-": (a, b) => a - b,
     "*": (a, b) => a * b,
     "/": (a, b) => (b !== 0 ? a / b : "Error"),
-    "%": (a, b) => (b !== undefined ? a * (b / 100) : a / 100), // Fixed percentage logic
+    "+PRC": (a, b) => a + (b * a / 100), 
+    "-PRC": (a, b) => a - (b * a / 100),
     "^": (a, b) => Math.pow(a, b),
     "SQUARE2": (a) => Math.sqrt(a),
     "SQUARE3": (a) => Math.cbrt(a),
@@ -52,8 +54,7 @@ let operations = {
 
 // Function to set first and second operand
 function setOperand() {
-    if (firstOperand === null && currentInput === "") return; // Prevent setting an empty operand
-
+    if (firstOperand === null && currentInput === "") return;
     if (firstOperand === null) {
         firstOperand = parseFloat(currentInput);
         log(`First operand is: ${firstOperand}`);
@@ -95,13 +96,13 @@ function calculate() {
             log(`Result: ${firstOperand}`);
             operator = null;
         }
-    } else if (operator === "%" && firstOperand !== null && secondOperand !== null) {
-        //  operand + prc
-        firstOperand = firstOperand + (firstOperand * (secondOperand / 100));
-        log(`Result after percentage: ${firstOperand}`);
     } else if (firstOperand !== null && secondOperand !== null) {
+        if (operator === "+PRC" || operator === "-PRC") {
+            secondOperand = (firstOperand * secondOperand / 100);
+        }
         firstOperand = operations[operator](firstOperand, secondOperand);
         log(`Result: ${firstOperand}`);
+        operator = null;
     }
 
     secondOperand = null;
@@ -156,11 +157,8 @@ function deleteLastChar() {
 
 // Handle number input
 function handleNumberInput(value) {
-    if (value === "." && currentInput.includes(".")) return; // Prevent double decimals
-    currentInput =
-        (currentInput === "" && value === ".")
-            ? "0."
-            : currentInput + value;
+    if (value === "." && currentInput.includes(".")) return;
+    currentInput = (currentInput === "" && value === ".") ? "0." : currentInput + value;
     updateUi();
 }
 
@@ -178,13 +176,29 @@ buttons.forEach((button) => {
             case value in operations:
                 if (value === "SQUARE2" || value === "SQUARE3") {
                     applySingleOperandOperation(value);
-                } else if (value === "%") {
-                    setOperand();
-                    if (secondOperand === null) {
-                        secondOperand = firstOperand;
+                } else if (value === "+PRC") {
+                    if (firstOperand !== null && currentInput !== "") {
+                        secondOperand = parseFloat(currentInput);
+                        firstOperand += (secondOperand / 100) * firstOperand;
+                        log(`First operand after +PRC: ${firstOperand}`);
+                        secondOperand = null;
+                        operator = null;
+                        currentInput = "";
+                        updateUi();
                     }
-                    operator = "%";
-                    calculate();
+                } else if (value === "-PRC") {
+                    if (firstOperand !== null && currentInput !== "") {
+                        secondOperand = parseFloat(currentInput);
+                        let percentValue = (secondOperand / 100) * firstOperand;
+                        log(`First operand before -PRC: ${firstOperand}`);
+                        log(`Second operand (percent): ${percentValue}`);
+                        firstOperand = firstOperand / (1 + secondOperand / 100);
+                        log(`First operand after -PRC: ${firstOperand}`);
+                        secondOperand = null;
+                        operator = null;
+                        currentInput = "";
+                        updateUi();
+                    }
                 } else {
                     setOperator(value);
                 }
