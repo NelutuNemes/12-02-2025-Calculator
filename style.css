@@ -73,10 +73,11 @@ body{
     width: 5rem;
     height: 5rem;
     border-radius: 4px;
-    font-size: 2rem;
+    font-size: 1.5rem;
     background-color: rgb(246, 245, 243);
     cursor: pointer;
     border: 1px solid transparent;
+    padding: 2px;
 }
 .equal,.zero{
     grid-column: span 2;
