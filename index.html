@@ -8,18 +8,28 @@
 </head>
 <body>
     <header>
-        <h5>My App</h5>
+        <!-- <h5>My App</h5> -->
     </header>
     <main>
         <div class="container">
-            <div class="display" id="display"></div>
+
+        <div class="extendedDisplay" id="extendedDisplay">
+            <div id="amount">-Amount: 0.00</div>
+            <div id="vat">-VAT: 0 %</div>
+            <div id="vat-value">-VAT value: 0.00</div>
+            <div id="amountPlusVat">-Final Result : 0</div>
+            <vat></vat>
+        </div>
+
+        <div class="display" id="display"></div>
+
             <div class="toggle-operations">
                 <input type="radio" name="toggleOps" id="basic" checked>
                 <label for="basic">Basic</label>        
                 <input type="radio" name="toggleOps" id="show-extra-ops">
-                <label for="show-extra-ops">Advanced Ops</label>
+                <label for="show-extra-ops">Advanced Operations</label>
                 <input type="radio" name="toggleOps" id="vat-handler">
-                <label for="vat-handler">VAT Ops</label>
+                <label for="vat-handler">VAT Helper</label>
 
             </div>
             <div class="buttons">
@@ -27,8 +37,8 @@
                 <button class="btn delete" data-value="DEL">DEL</button>
                 <button class="btn equal" data-value="=">=</button>
             <div class="percent">
-                <button class="btn operator " id="percent-btn-plus"  data-value="+PRC">+PRC</button>
-                <button class="btn operator " id="percent-btn-minus" data-value="-PRC">-PRC</button>
+                <button class="btn operator " id="percent-btn-plus"  data-value="+PRC">+ V.A.T</button>
+                <button class="btn operator " id="percent-btn-minus" data-value="-PRC">- V.A.T</button>
             </div>
             <div class="extra-operations">
                 <button class="btn operator " id="free" data-value="free"></button>

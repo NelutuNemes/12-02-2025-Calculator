@@ -6,13 +6,21 @@ let log = (message) => {
 log(`Debug is active!`);
 
 // Get reference to the DOM elements
+let extendedDisplay = document.getElementById("extendedDisplay");
 let display = document.getElementById("display");
 let buttons = document.querySelectorAll(".btn");
+
+let amount = document.getElementById("amount");
+let vat = document.getElementById("vat");
+let vatValue = document.getElementById("vat-value");
+let amountPlusVat = document.getElementById("amountPlusVat");
+
 
 // Initialize display
 (() => {
     display.classList.add("smallFont");
     display.textContent = "... initializing device";
+
     setTimeout(() => {
         display.classList.remove("smallFont");
         display.textContent = "0";
@@ -26,11 +34,22 @@ log(`All buttons: ${Array.from(buttons).map((button) => button.getAttribute("dat
 document.getElementById("basic").addEventListener("change", () => {
     document.querySelector(".extra-operations").classList.remove("show-extras");
     document.querySelector(".percent").classList.remove("show-extras");
+    document.querySelector(".extendedDisplay").classList.remove("show-extras");
+
 });
 
 document.getElementById("show-extra-ops").addEventListener("change", () => {
     document.querySelector(".extra-operations").classList.add("show-extras");
+    document.querySelector(".percent").classList.remove("show-extras");
+    document.querySelector(".extendedDisplay").classList.remove("show-extras");
+
+});
+
+document.getElementById("vat-handler").addEventListener("change", () => {
+    document.querySelector(".extra-operations").classList.remove("show-extras");
     document.querySelector(".percent").classList.add("show-extras");
+    document.querySelector(".extendedDisplay").classList.add("show-extras");
+
 });
 
 // Global variables
@@ -38,6 +57,11 @@ let firstOperand = null;
 let secondOperand = null;
 let operator = null;
 let currentInput = "";
+let detailedResult = "";
+let tempFirstOperand = "";
+let calculatedVatValue = "";
+let calculatedVatValue2 = "";
+
 
 // Object for mathematical operations
 let operations = {
@@ -45,8 +69,6 @@ let operations = {
     "-": (a, b) => a - b,
     "*": (a, b) => a * b,
     "/": (a, b) => (b !== 0 ? a / b : "Error"),
-    "+PRC": (a, b) => a + (b * a / 100), 
-    "-PRC": (a, b) => a - (b * a / 100),
     "^": (a, b) => Math.pow(a, b),
     "SQUARE2": (a) => Math.sqrt(a),
     "SQUARE3": (a) => Math.cbrt(a),
@@ -161,6 +183,73 @@ function handleNumberInput(value) {
     currentInput = (currentInput === "" && value === ".") ? "0." : currentInput + value;
     updateUi();
 }
+//function for detailed result for VAT helper
+function updateDetailedResults() {
+    amount.textContent = `-Amount : ${tempFirstOperand}`;
+    vat.textContent = `-VAT  : ${secondOperand} %`;
+    vatValue.textContent = `- VAT value : ${calculatedVatValue}`;
+    amountPlusVat.textContent = `-New amount (whith VAT) : ${firstOperand}`;
+}
+function updateDetailedResults2() {
+    amount.textContent = `-Amount (whith VAT) : ${tempFirstOperand}`;
+    vat.textContent = `-VAT  : ${secondOperand} %`;
+    vatValue.textContent = `- VAT value : ${calculatedVatValue2}`;
+    amountPlusVat.textContent = `-New amount (whithout VAT) : ${firstOperand}`;
+}
+
+
+// Function to handle +PRC operation
+function handlePlusPRC() {
+    if (firstOperand !== null && currentInput !== "") {
+        log(`First operand: ${firstOperand}`);
+
+        tempFirstOperand = firstOperand;
+
+        secondOperand = parseFloat(currentInput);
+        log(`Second operand: ${secondOperand}`);
+
+        let currentPercent = secondOperand / 100;
+        firstOperand += (currentPercent) * firstOperand;
+        
+
+        log(`Current percent value: ${currentPercent} value`);
+
+        log(`Result after aplied "+PRC": ${firstOperand}`);
+
+        log(detailedResult);
+
+        calculatedVatValue = (firstOperand - tempFirstOperand).toFixed(2);
+        log(`Calculated Iva Value is : ${calculatedVatValue}`)
+        
+        updateDetailedResults();
+        secondOperand = null;
+        operator = null;
+        currentInput = "";
+        updateUi();
+    }
+}
+
+// Function to handle -PRC operation
+function handleMinusPRC() {
+    if (firstOperand !== null && currentInput !== "") {
+        tempFirstOperand = firstOperand;
+
+        secondOperand = parseFloat(currentInput);
+        let percentValue = (secondOperand / 100) * firstOperand; // Calculation of percent value
+        log(`First operand before -PRC: ${firstOperand}`);
+        log(`Second operand (percent): ${percentValue}`);
+        firstOperand = firstOperand / (1 + secondOperand / 100); // Calculation formula
+        log(`First operand after -PRC: ${firstOperand}`);
+
+        calculatedVatValue2 = (tempFirstOperand-firstOperand).toFixed(2);
+
+        updateDetailedResults2();
+        secondOperand = null;
+        operator = null;
+        currentInput = "";
+        updateUi();
+    }
+}
 
 // Add event listeners for buttons
 buttons.forEach((button) => {
@@ -176,32 +265,15 @@ buttons.forEach((button) => {
             case value in operations:
                 if (value === "SQUARE2" || value === "SQUARE3") {
                     applySingleOperandOperation(value);
-                } else if (value === "+PRC") {
-                    if (firstOperand !== null && currentInput !== "") {
-                        secondOperand = parseFloat(currentInput);
-                        firstOperand += (secondOperand / 100) * firstOperand;
-                        log(`First operand after +PRC: ${firstOperand}`);
-                        secondOperand = null;
-                        operator = null;
-                        currentInput = "";
-                        updateUi();
-                    }
-                } else if (value === "-PRC") {
-                    if (firstOperand !== null && currentInput !== "") {
-                        secondOperand = parseFloat(currentInput);
-                        let percentValue = (secondOperand / 100) * firstOperand;
-                        log(`First operand before -PRC: ${firstOperand}`);
-                        log(`Second operand (percent): ${percentValue}`);
-                        firstOperand = firstOperand / (1 + secondOperand / 100);
-                        log(`First operand after -PRC: ${firstOperand}`);
-                        secondOperand = null;
-                        operator = null;
-                        currentInput = "";
-                        updateUi();
-                    }
-                } else {
+                } else  {
                     setOperator(value);
                 }
+                break;
+            case value === "+PRC":
+                handlePlusPRC();
+                break;
+            case value === "-PRC":
+                handleMinusPRC();
                 break;
             case value === "=":
                 setOperand();
