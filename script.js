@@ -153,6 +153,12 @@ function resetCalculator() {
     operator = null;
     currentInput = "";
     display.textContent = "0";
+    amount.textContent = `-Amount : ${"0.00"}`;
+    vat.textContent = `-VAT  : ${"0"} %`;
+    vatValue.textContent = `- VAT value : ${"0.00"}`;
+    amountPlusVat.textContent = `-Final result : ${"0.00"}`;
+
+
     log(`Reset calculator!`);
 }
 
