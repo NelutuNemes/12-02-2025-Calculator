@@ -105,9 +105,9 @@ function setOperator(value) {
 // Function to update UI
 function updateUi() {
     display.textContent =
-        (firstOperand !== null ? firstOperand.toString() : "") +
+        (firstOperand !== null ? firstOperand.toFixed(2).toString() : "") +
         (operator !== null ? operator : "") +
-        (currentInput || (secondOperand !== null ? secondOperand.toString() : ""));
+        (currentInput || (secondOperand !== null ? secondOperand.toFixed(2).toString() : ""));
 }
 
 // Main function for calculation
@@ -153,10 +153,10 @@ function resetCalculator() {
     operator = null;
     currentInput = "";
     display.textContent = "0";
-    amount.textContent = `-Amount : ${"0.00"}`;
-    vat.textContent = `-VAT  : ${"0"} %`;
+    amount.textContent = `- Amount : ${"0.00"}`;
+    vat.textContent = `- VAT  : ${"0"} %`;
     vatValue.textContent = `- VAT value : ${"0.00"}`;
-    amountPlusVat.textContent = `-Final result : ${"0.00"}`;
+    amountPlusVat.textContent = `- Final result : ${"0.00"}`;
 
 
     log(`Reset calculator!`);
@@ -191,16 +191,16 @@ function handleNumberInput(value) {
 }
 //function for detailed result for VAT helper
 function updateDetailedResults() {
-    amount.textContent = `-Amount : ${tempFirstOperand}`;
-    vat.textContent = `-VAT  : ${secondOperand} %`;
+    amount.textContent = `- Amount : ${tempFirstOperand}`;
+    vat.textContent = `- VAT  : ${secondOperand} %`;
     vatValue.textContent = `- VAT value : ${calculatedVatValue}`;
-    amountPlusVat.textContent = `-New amount (whith VAT) : ${firstOperand}`;
+    amountPlusVat.textContent = `- New amount (whith VAT) : ${firstOperand.toFixed(2)}`;
 }
 function updateDetailedResults2() {
-    amount.textContent = `-Amount (whith VAT) : ${tempFirstOperand}`;
-    vat.textContent = `-VAT  : ${secondOperand} %`;
+    amount.textContent = `- Amount (whith VAT) : ${tempFirstOperand}`;
+    vat.textContent = `- VAT  : ${secondOperand} %`;
     vatValue.textContent = `- VAT value : ${calculatedVatValue2}`;
-    amountPlusVat.textContent = `-New amount (whithout VAT) : ${firstOperand}`;
+    amountPlusVat.textContent = `- New amount (whithout VAT) : ${firstOperand.toFixed(2)}`;
 }
 
 
