@@ -27,6 +27,8 @@ let amountPlusVat = document.getElementById("amountPlusVat");
     }, 1000);
 })();
 
+extendedDisplay.classList.add("hidden");
+
 log(`Find: ${buttons.length} buttons.`);
 log(`All buttons: ${Array.from(buttons).map((button) => button.getAttribute("data-value"))}`);
 
@@ -34,22 +36,27 @@ log(`All buttons: ${Array.from(buttons).map((button) => button.getAttribute("dat
 document.getElementById("basic").addEventListener("change", () => {
     document.querySelector(".extra-operations").classList.remove("show-extras");
     document.querySelector(".percent").classList.remove("show-extras");
-    document.querySelector(".extendedDisplay").classList.remove("show-extras");
+    document.querySelector(".extendedDisplay").classList.remove("visible");
 
 });
 
 document.getElementById("show-extra-ops").addEventListener("change", () => {
     document.querySelector(".extra-operations").classList.add("show-extras");
     document.querySelector(".percent").classList.remove("show-extras");
-    document.querySelector(".extendedDisplay").classList.remove("show-extras");
+    document.querySelector(".extendedDisplay").classList.remove("visible");
 
 });
 
 document.getElementById("vat-handler").addEventListener("change", () => {
     document.querySelector(".extra-operations").classList.remove("show-extras");
     document.querySelector(".percent").classList.add("show-extras");
-    document.querySelector(".extendedDisplay").classList.add("show-extras");
-
+    if (!extendedDisplay.classList.contains("visible")) {
+        extendedDisplay.style.display = "flex";
+        setTimeout(() => extendedDisplay.classList.add("visible"), 10); 
+    } else {
+        extendedDisplay.classList.remove("visible");
+        setTimeout(() => extendedDisplay.style.display = "none", 600);
+    }
 });
 
 // Global variables
