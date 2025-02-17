@@ -76,6 +76,7 @@ let operations = {
     "-": (a, b) => a - b,
     "*": (a, b) => a * b,
     "/": (a, b) => (b !== 0 ? a / b : "Error"),
+    "^^": (a) => a ** 2,
     "^": (a, b) => Math.pow(a, b),
     "SQUARE2": (a) => Math.sqrt(a),
     "SQUARE3": (a) => Math.cbrt(a),
@@ -276,7 +277,7 @@ buttons.forEach((button) => {
                 handleNumberInput(value);
                 break;
             case value in operations:
-                if (value === "SQUARE2" || value === "SQUARE3") {
+                if (value === "SQUARE2" || value === "SQUARE3" ||value ==="^^") {
                     applySingleOperandOperation(value);
                 } else  {
                     setOperator(value);

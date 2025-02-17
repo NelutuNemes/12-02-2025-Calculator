@@ -1,5 +1,5 @@
 body{
-    background-color: wheat;
+    background-color: rgb(249, 231, 197);
 }
 .extendedDisplay{
     display: none;
@@ -19,7 +19,7 @@ body{
     /* font-weight: bold; */
 }
 .container{
-    background-color: #a2b9bc;
+    background-color: lightsteelblue;
     width: 21rem;
     min-height: 55vh;
     display: flex;
@@ -29,6 +29,11 @@ body{
     border-radius: 12px;
     padding: 0.2rem;
     margin-bottom: 5rem;
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    
+
 }
 .display{
     background: black;
@@ -80,6 +85,9 @@ body{
     border: 1px solid transparent;
     padding: 2px;
 }
+#number{
+    background-color: white; 
+}
 .equal,.zero{
     grid-column: span 2;
     width: 10.1rem;
@@ -87,10 +95,10 @@ body{
     background: orange;
 }
 .delete, .clear{
-    background: lightgray;
+    background: rgb(174, 173, 173);
 }
 .equal{
-    background: rgb(135, 132, 132);
+    background: rgb(122, 119, 119);
     color: white;
 }
 body{
