@@ -182,6 +182,12 @@ font-weight: bold;
     pointer-events: auto;
 } */
 
-
+media only screen and (max-width: 600px) {
+    .container {
+        width: 95vw;  
+        min-height: 95vh; 
+        padding: 3vw;
+    }
+}
 
 
