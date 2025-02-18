@@ -185,7 +185,7 @@ font-weight: bold;
 media only screen and (max-width: 600px) {
     .container {
         width: 95vw;  
-        min-height: 95vh; 
+        max-height: 85vh; 
         padding: 3vw;
     }
 }
