@@ -51,6 +51,7 @@ body{
     border: 1px solid white;
     padding: 1rem;
     border-radius: 6px;
+    width: 17rem;
 }
 .buttons{
     display: grid;
