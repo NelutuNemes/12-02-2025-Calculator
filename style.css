@@ -5,7 +5,7 @@ body{
     display: none;
     background: black;
     color: greenyellow;
-    width: 19rem;
+    width: 18rem;
     height: fit-content;
     flex-direction: column;
     align-items: first baseline;
@@ -36,7 +36,7 @@ body{
 .display{
     background: black;
     color: greenyellow;
-    width: 19.7rem;
+    width: 18rem;
     height: 3rem;
     display: flex;
     flex-direction: row;
