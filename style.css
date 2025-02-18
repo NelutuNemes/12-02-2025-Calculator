@@ -5,7 +5,7 @@ body{
     display: none;
     background: black;
     color: greenyellow;
-    width: 19.7rem;
+    width: 19rem;
     height: fit-content;
     flex-direction: column;
     align-items: first baseline;
@@ -14,8 +14,8 @@ body{
     margin-bottom: 1px;
     padding: 0.3rem;
     border-radius: 6px;
-    gap: 0.3rem;
-    font-size: 1.1rem;
+    gap: 0.1rem;
+    font-size: 0.8rem;
     /* font-weight: bold; */
 }
 .container{
@@ -38,8 +38,8 @@ body{
 .display{
     background: black;
     color: greenyellow;
-    width: 19.7rem;
-    height: 3rem;
+    width: 19rem;
+    height: 2rem;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -48,6 +48,11 @@ body{
     border-radius: 6px;
     font-size: 2rem;
     margin-bottom: 0.3rem;
+}
+.btn-container{
+    border: 1px solid white;
+    padding: 1rem;
+    border-radius: 6px;
 }
 .buttons{
     display: grid;
@@ -68,15 +73,15 @@ body{
 
 #percent-btn-plus, #percent-btn-minus{
     grid-column: span 2;
-    width: 10.2rem;
+    width: 8.5rem;
     height: 4rem;
     gap: 3px;
     background: rgb(132, 132, 241);
     color:white;
 }
 .btn{
-    width: 5rem;
-    height: 5rem;
+    width: 4rem;
+    height: 4rem;
     border-radius: 4px;
     font-size: 1.5rem;
     background-color: white;
@@ -90,7 +95,7 @@ body{
 }
 .equal,.zero{
     grid-column: span 2;
-    width: 10.1rem;
+    width: 8.4rem;
 }.operator{
     background: orange;
 }
