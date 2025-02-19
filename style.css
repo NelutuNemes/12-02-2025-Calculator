@@ -27,12 +27,13 @@ body{
     align-items: center;
     margin: auto;
     border-radius: 12px;
-    /* padding: 0.2rem; */
+    padding: 0.2rem;
     margin-bottom: 5rem;
     padding-top: 0.4rem;
     padding-bottom: 2.2rem;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    }
+    box-sizing: border-box;
+}
 .display{
     background: black;
     color: greenyellow;
