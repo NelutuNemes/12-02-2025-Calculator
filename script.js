@@ -9,11 +9,15 @@ log(`Debug is active!`);
 let extendedDisplay = document.getElementById("extendedDisplay");
 let display = document.getElementById("display");
 let buttons = document.querySelectorAll(".btn");
+let toggleSoundBtn = document.getElementById("toggle-sound-btn");
 
 let amount = document.getElementById("amount");
 let vat = document.getElementById("vat");
 let vatValue = document.getElementById("vat-value");
 let amountPlusVat = document.getElementById("amountPlusVat");
+
+//
+let soundEnable = true;
 
 
 // Initialize display
@@ -305,3 +309,19 @@ buttons.forEach((button) => {
         }
     });
 });
+
+
+//function toggle sound on / sound off
+toggleSoundBtn.addEventListener("click", () => {
+    soundEnable = !soundEnable; //switch variable value
+    toggleSoundBtn.textContent = soundEnable ? "🔊" : "🔇";
+})
+//function to apply button sound
+buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+        if (soundEnable) {
+        new Audio("sounds/minimal-pop-click-ui-1-198301.mp3").play();
+        }
+    })
+});
+
