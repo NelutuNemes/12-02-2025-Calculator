@@ -221,7 +221,7 @@ function handlePlusPRC() {
     if (firstOperand !== null && currentInput !== "") {
         log(`First operand: ${firstOperand}`);
 
-        tempFirstOperand = firstOperand;
+        tempFirstOperand = firstOperand.toFixed(2);
 
         secondOperand = parseFloat(currentInput);
         log(`Second operand: ${secondOperand}`);
@@ -250,7 +250,7 @@ function handlePlusPRC() {
 // Function to handle -PRC operation
 function handleMinusPRC() {
     if (firstOperand !== null && currentInput !== "") {
-        tempFirstOperand = firstOperand;
+        tempFirstOperand = firstOperand.toFixed(2);
 
         secondOperand = parseFloat(currentInput);
         let percentValue = (secondOperand / 100) * firstOperand; // Calculation of percent value
