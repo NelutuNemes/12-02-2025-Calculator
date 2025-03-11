@@ -17,7 +17,7 @@ let vatValue = document.getElementById("vat-value");
 let amountPlusVat = document.getElementById("amountPlusVat");
 
 //
-let soundEnable = true;
+let soundEnable = false;
 
 
 // Initialize display
