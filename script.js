@@ -17,7 +17,7 @@ let vatValue = document.getElementById("vat-value");
 let amountPlusVat = document.getElementById("amountPlusVat");
 
 //
-let soundEnable = false;
+//let soundEnable = true;
 
 
 // Initialize display
@@ -312,7 +312,7 @@ buttons.forEach((button) => {
 
 
 //function toggle sound on / sound off
-toggleSoundBtn.addEventListener("click", () => {
+/* toggleSoundBtn.addEventListener("click", () => {
     soundEnable = !soundEnable; //switch variable value
     toggleSoundBtn.textContent = soundEnable ? "🔊" : "🔇";
 })
@@ -323,5 +323,5 @@ buttons.forEach((button) => {
         new Audio("sounds/minimal-pop-click-ui-1-198301.mp3").play();
         }
     })
-});
+}); */
 
