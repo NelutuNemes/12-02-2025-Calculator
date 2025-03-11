@@ -5,13 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculator</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/i18next/23.0.1/i18next.min.js"></script>
+
 </head>
 <body>
-    <header>
-        <!-- <h5>My App</h5> -->
-    </header>
     <main>
         <div class="container">
+                <div class="header">
+        <button id="lang-ro" class="lang-btn"><img src="resources/image/ro-flag.png" alt="Română" width="30"></button>
+        <button id="lang-en" class="lang-btn"><img src="resources/image/uk-flag.png" alt="English" width="30"></button>
+    </div>
+    <div id="title">myMiniCalculator</div>
 
         <div class="extendedDisplay" id="extendedDisplay">
             <div id="amount">-Amount: 0.00</div>
@@ -25,11 +29,11 @@
 
             <div class="toggle-operations">
                 <input type="radio" name="toggleOps" id="basic" checked>
-                <label for="basic">Basic</label>        
+                <label for="basic" id="label-basic">Basic</label>        
                 <input type="radio" name="toggleOps" id="show-extra-ops">
-                <label for="show-extra-ops">Advanced Ops</label>
+                <label for="show-extra-ops"  id="label-extra-ops">Advanced Ops</label>
                 <input type="radio" name="toggleOps" id="vat-handler">
-                <label for="vat-handler">VAT Helper</label>
+                <label for="vat-handler"  id="vat-handler">VAT Helper</label>
                <!-- <button id="toggle-sound-btn">🔊</button> -->
 
             </div>

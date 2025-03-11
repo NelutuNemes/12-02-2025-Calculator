@@ -10,15 +10,21 @@ let extendedDisplay = document.getElementById("extendedDisplay");
 let display = document.getElementById("display");
 let buttons = document.querySelectorAll(".btn");
 let toggleSoundBtn = document.getElementById("toggle-sound-btn");
+let title = document.getElementById("title");
+let labelBasic = document.getElementById("label-basic");
+let labelExtraOps = document.getElementById("label-extra-ops");
+let vatHandler = document.getElementById("vat-handler");
+let percentBtnPlus = document.getElementById("percent-btn-plus");
+let percentBtnMinus = document.getElementById("percent-btn-minus");
+
+
 
 let amount = document.getElementById("amount");
 let vat = document.getElementById("vat");
 let vatValue = document.getElementById("vat-value");
 let amountPlusVat = document.getElementById("amountPlusVat");
 
-//
 //let soundEnable = true;
-
 
 // Initialize display
 (() => {
@@ -203,17 +209,19 @@ function handleNumberInput(value) {
 }
 //function for detailed result for VAT helper
 function updateDetailedResults() {
-    amount.textContent = `- Amount : ${tempFirstOperand}`;
-    vat.textContent = `- VAT  : ${secondOperand} %`;
-    vatValue.textContent = `- VAT value : ${calculatedVatValue}`;
-    amountPlusVat.textContent = `- New amount (whith VAT) : ${firstOperand.toFixed(2)}`;
+    amount.textContent = `- ${i18next.t("amount")} : ${tempFirstOperand}`;
+    vat.textContent = `- ${i18next.t("ivaPercent")} : ${secondOperand} %`;
+    vatValue.textContent = `- ${i18next.t("ivaValue")} : ${calculatedVatValue}`;
+    amountPlusVat.textContent = `- ${i18next.t("finalResult")} : ${firstOperand.toFixed(2)}`;
 }
+
 function updateDetailedResults2() {
-    amount.textContent = `- Amount (whith VAT) : ${tempFirstOperand}`;
-    vat.textContent = `- VAT  : ${secondOperand} %`;
-    vatValue.textContent = `- VAT value : ${calculatedVatValue2}`;
-    amountPlusVat.textContent = `- New amount (whithout VAT) : ${firstOperand.toFixed(2)}`;
+    amount.textContent = `- ${i18next.t("amount")} : ${tempFirstOperand}`;
+    vat.textContent = `- ${i18next.t("ivaPercent")} : ${secondOperand} %`;
+    vatValue.textContent = `- ${i18next.t("ivaValue")} : ${calculatedVatValue2}`;
+    amountPlusVat.textContent = `- ${i18next.t("finalResult")} : ${firstOperand.toFixed(2)}`;
 }
+
 
 
 // Function to handle +PRC operation
@@ -309,6 +317,74 @@ buttons.forEach((button) => {
         }
     });
 });
+
+// toggle lang function
+i18next.init({
+    lng: "ro", // Default language
+
+    resources: {
+        ro: {
+            translation: {
+                appTitle: "myMiniCalculator",
+                basic: "Simplu",
+                advanced: "Avansat",
+                ivaButton: "ajutor-TVA ",
+                amount: "Suma",
+                ivaPercent: "TVA",
+                ivaValue: "Valoare TVA",
+                finalResult: "Suma Finala(cu TVA)",
+                percentBtnPlus: "+ T.V.A",
+                percentBtnMinus: "- T.V.A"
+
+            }
+        },
+        en: {
+            translation: {
+                appTitle: "myMiniCalculator",
+                basic: "Basic",
+                advanced: "Advanced Ops",
+                ivaButton: "VAT Helpper ",
+                amount: "Amount",
+                ivaPercent: "VAT",
+                ivaValue: "VAT Value",
+                finalResult: "New amount(with VAT)",
+                percentBtnPlus: "+ V.A.T",
+                percentBtnMinus: "- V.A.T"                
+            }
+        }
+    }
+});
+
+function changeLanguage(lang) {
+    i18next.changeLanguage(lang, () => {
+        document.getElementById("title").textContent = i18next.t("appTitle");
+        document.getElementById("label-basic").textContent = i18next.t("basic");
+        document.getElementById("label-extra-ops").textContent = i18next.t("advanced");
+        document.getElementById("vat-handler").textContent = i18next.t("ivaButton");
+
+        // Retrieve values directly from the interface, if they exist
+        let currentAmount = document.getElementById("amount").textContent.split(":")[1]?.trim() || "0.00";
+        let currentVat = document.getElementById("vat").textContent.split(":")[1]?.trim() || "0";
+        let currentVatValue = document.getElementById("vat-value").textContent.split(":")[1]?.trim() || "0.00";
+        let currentTotal = document.getElementById("amountPlusVat").textContent.split(":")[1]?.trim() || "0.00";
+
+        // Update the interface without losing calculated values
+        document.getElementById("amount").textContent = `- ${i18next.t("amount")} : ${currentAmount}`;
+        document.getElementById("vat").textContent = `- ${i18next.t("ivaPercent")} : ${currentVat}`;
+        document.getElementById("vat-value").textContent = `- ${i18next.t("ivaValue")} : ${currentVatValue}`;
+        document.getElementById("amountPlusVat").textContent = `- ${i18next.t("finalResult")} : ${currentTotal}`;
+
+        percentBtnPlus.textContent = `${i18next.t("percentBtnPlus")}`;
+        percentBtnMinus.textContent = `${i18next.t("percentBtnMinus")}`;
+    });
+}
+
+document.getElementById("lang-ro").addEventListener("click", () => changeLanguage("ro"));
+document.getElementById("lang-en").addEventListener("click", () => changeLanguage("en"));
+
+changeLanguage("ro"); // Setarea implicită
+
+
 
 
 //function toggle sound on / sound off

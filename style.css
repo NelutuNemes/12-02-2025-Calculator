@@ -1,6 +1,29 @@
 body{
     background-color: rgb(249, 231, 197);
 }
+#title{
+    /* background-color: antiquewhite; */
+    width: 90%;
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 0.4rem;
+}
+ .header{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-content: end;
+    gap: 0.5rem;
+    margin-right: 2rem;
+ }
+ .lang-btn {
+    border: none;
+    background-color:transparent;
+    cursor: pointer;
+    margin: 0 5px;
+    padding: 0.3rem;
+}
 .extendedDisplay{
     display: none;
     background: black;
@@ -68,13 +91,13 @@ body{
 .percent{
     display: none;
     grid-column: span 4;
-    gap: 3px;
+    gap: 0.3rem;
     /* background: lavender; */
 }
 
 #percent-btn-plus, #percent-btn-minus{
     grid-column: span 2;
-    width: 8.5rem;
+    width: 8.3rem;
     height: 4rem;
     gap: 3px;
     background: rgb(132, 132, 241);
